@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        nodejs "Node24"
+    }
     environment {
         PROJECT_NAME = 'huytm-workshop2'
         REMOTE_HOST = '118.69.34.46'
