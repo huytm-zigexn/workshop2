@@ -1,0 +1,4 @@
+always {
+    echo "===== CLEANUP ====="
+    cleanWs()
+}
