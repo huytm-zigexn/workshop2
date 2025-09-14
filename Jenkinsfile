@@ -65,7 +65,7 @@ pipeline {
                                     ssh -o StrictHostKeyChecking=no -i $SSH_KEY -p ${REMOTE_PORT} ${REMOTE_USER}@${REMOTE_HOST} "
                                         cd ${REMOTE_PATH}/${WORKSPACE_NAME}/deploy
                                         rm -f current
-                                        ln -s ${RELEASE_DATE} current
+                                        ln -s "${RELEASE_DATE}" current
                                         ls -1t | grep -E '^[0-9]{8}$' | tail -n +6 | xargs -r rm -rf
                                     "
                                 """
