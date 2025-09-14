@@ -10,6 +10,7 @@ pipeline {
         REMOTE_USER = 'newbie'
         REMOTE_PATH = '/usr/share/nginx/html/jenkins'
         WORKSPACE_NAME = 'huytm2'
+        RELEASE_DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
     }
     stages {
         stage('Checkout') {
@@ -53,11 +54,11 @@ pipeline {
                     steps {
                         echo "===== DEPLOY TO REMOTE SERVER ====="
                         script {
-                            def releaseDate = sh(script: 'date +%Y%m%d%H%M%S', returnStdout: true).trim()
-                            def releaseDir = "${REMOTE_PATH}/${WORKSPACE_NAME}/deploy/${releaseDate}"
+                            def releaseDir = "${REMOTE_PATH}/${WORKSPACE_NAME}/deploy/${RELEASE_DATE}"
+
                             withCredentials([file(credentialsId: 'remote-server-ssh-key', variable: 'SSH_KEY')]) {
                                 sh """
-                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "mkdir -p \${releaseDir}"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "mkdir -p ${releaseDir}"
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} index.html \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} 404.html \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} -r css \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
