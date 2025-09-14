@@ -42,7 +42,7 @@ pipeline {
                         //         firebase deploy --only hosting --project=${PROJECT_NAME}
                         //     '''
                         // }
-                        withCredentials([file(credentialsId: 'legacy_token', variable: 'FIREBASE_TOKEN')]) {
+                        withCredentials([string(credentialsId: 'legacy_token', variable: 'FIREBASE_TOKEN')]) {
                             sh '''
                                 export FIREBASE_TOKEN=$FIREBASE_TOKEN
                                 firebase deploy --token "$FIREBASE_TOKEN" --only hosting --project=${PROJECT_NAME}
