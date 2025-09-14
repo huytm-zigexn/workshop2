@@ -10,7 +10,9 @@
       "README.md",
       ".git/**",
       ".github/**",
-      "Jenkinsfile"
+      "Jenkinsfile",
+      "Dockerfile",
+      "eslint.config.js"
     ],
     "rewrites": [
       {
