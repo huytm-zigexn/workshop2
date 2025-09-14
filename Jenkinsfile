@@ -10,7 +10,7 @@ pipeline {
         REMOTE_USER = 'newbie'
         REMOTE_PATH = '/usr/share/nginx/html/jenkins'
         WORKSPACE_NAME = 'huytm2'
-        RELEASE_DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()\
+        RELEASE_DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
         MAIN_FOLDER = 'web-performance-project1-initial'
     }
     stages {
