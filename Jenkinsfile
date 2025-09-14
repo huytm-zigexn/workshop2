@@ -4,7 +4,7 @@ pipeline {
         nodejs "Node24"
     }
     environment {
-        PROJECT_NAME = 'huytm-workshop2'
+        PROJECT_NAME = 'workshop2-488e3'
         REMOTE_HOST = '118.69.34.46'
         REMOTE_PORT = '3334'
         REMOTE_USER = 'newbie'
@@ -57,9 +57,7 @@ pipeline {
                             def releaseDir = "${REMOTE_PATH}/${WORKSPACE_NAME}/deploy/${releaseDate}"
                             withCredentials([file(credentialsId: 'remote-server-ssh-key', variable: 'SSH_KEY')]) {
                                 sh """
-                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "
-                                        mkdir -p \${releaseDir}
-                                    "
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "mkdir -p \${releaseDir}"
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} index.html \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} 404.html \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} -r css \${REMOTE_USER}@\${REMOTE_HOST}:\${releaseDir}/
