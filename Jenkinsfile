@@ -10,7 +10,6 @@ pipeline {
         REMOTE_USER = 'newbie'
         REMOTE_PATH = '/usr/share/nginx/html/jenkins'
         WORKSPACE_NAME = 'huytm2'
-        RELEASE_DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
     }
     stages {
         stage('Checkout') {
@@ -54,7 +53,8 @@ pipeline {
                     steps {
                         echo "===== DEPLOY TO REMOTE SERVER ====="
                         script {
-                            def releaseDir = "${REMOTE_PATH}/${WORKSPACE_NAME}/deploy/${RELEASE_DATE}"
+                            def releaseDate = sh(script: 'date +%Y%m%d%H%M%S', returnStdout: true).trim()
+                            def releaseDir = "${REMOTE_PATH}/${WORKSPACE_NAME}/deploy/${releaseDate}"
                             withCredentials([file(credentialsId: 'remote-server-ssh-key', variable: 'SSH_KEY')]) {
                                 sh """
                                     ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "
