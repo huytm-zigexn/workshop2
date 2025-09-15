@@ -38,18 +38,18 @@ pipeline {
                 stage('Deploy to Firebase') {
                     steps {
                         echo "===== DEPLOY TO FIREBASE ====="
-                        // withCredentials([file(credentialsId: 'firebase_adc', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        //     sh '''
-                        //         export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
-                        //         firebase deploy --only hosting --project=${PROJECT_NAME}
-                        //     '''
-                        // }
-                        withCredentials([string(credentialsId: 'legacy_token', variable: 'FIREBASE_TOKEN')]) {
+                        withCredentials([file(credentialsId: 'firebase_adc', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                             sh '''
-                                export FIREBASE_TOKEN=$FIREBASE_TOKEN
-                                firebase deploy --token "$FIREBASE_TOKEN" --only hosting --project=${PROJECT_NAME}
+                                export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+                                firebase deploy --only hosting --project=${PROJECT_NAME}
                             '''
                         }
+                        // withCredentials([string(credentialsId: 'legacy_token', variable: 'FIREBASE_TOKEN')]) {
+                        //     sh '''
+                        //         export FIREBASE_TOKEN=$FIREBASE_TOKEN
+                        //         firebase deploy --token "$FIREBASE_TOKEN" --only hosting --project=${PROJECT_NAME}
+                        //     '''
+                        // }
                     }
                 }
                 stage('Deploy to Remote Server') {
