@@ -72,7 +72,11 @@ pipeline {
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} -r css \${REMOTE_USER}@\${REMOTE_HOST}:${mainDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} -r js \${REMOTE_USER}@\${REMOTE_HOST}:${mainDir}/
                                     scp -o StrictHostKeyChecking=no -i \$SSH_KEY -P \${REMOTE_PORT} -r images \${REMOTE_USER}@\${REMOTE_HOST}:${mainDir}/
-                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/* ${releaseDir}/"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/index.html ${releaseDir}/"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/404.html ${releaseDir}/"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/css ${releaseDir}/"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/js ${releaseDir}/"
+                                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "cp -r ${mainDir}/images ${releaseDir}/"
                                     ssh -o StrictHostKeyChecking=no -i \$SSH_KEY -p \${REMOTE_PORT} \${REMOTE_USER}@\${REMOTE_HOST} "
                                         cd \${REMOTE_PATH}/\${WORKSPACE_NAME}/deploy
                                         rm -f current
