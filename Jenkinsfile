@@ -11,6 +11,7 @@ pipeline {
         REMOTE_PATH = '/usr/share/nginx/html/jenkins'
         WORKSPACE_NAME = 'huytm2'
         RELEASE_DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
+        GIT_AUTHOR = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
         MAIN_FOLDER = 'web-performance-project1-initial'
     }
     stages {
@@ -93,7 +94,7 @@ pipeline {
                 channel: '#lnd-2025-workshop',
                 color: 'good',
                 message: ":white_check_mark: *SUCCESS*\n" +
-                        ":small_blue_diamond: *User:* ${env.BUILD_USER ?: 'System'}\n" +
+                        ":small_blue_diamond: *User:* ${GIT_AUTHOR}\n" +
                         ":small_blue_diamond: *Job:* ${env.JOB_NAME}\n" +
                         ":small_blue_diamond: *Build:* #${env.BUILD_NUMBER}\n" +
                         ":small_blue_diamond: *Release:* ${RELEASE_DATE}\n" +
